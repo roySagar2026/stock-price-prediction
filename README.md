@@ -1,79 +1,104 @@
-# StockPulse 📈
+<div align="center">
+
+# 📈 StockPulse
+
 ### Global Large-Cap Stock Movement Prediction System
 
-> **Production-grade ML platform** — LightGBM · XGBoost · LSTM · FastAPI · React  
-> 4 markets · 40+ features · Dynamic resolution · Real-time data · Dark UI Dashboard
+<img src="https://img.shields.io/badge/Python-3.11+-3776AB?style=for-the-badge&logo=python&logoColor=white" />
+<img src="https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react&logoColor=black" />
+<img src="https://img.shields.io/badge/FastAPI-Backend-009688?style=for-the-badge&logo=fastapi&logoColor=white" />
+<img src="https://img.shields.io/badge/LightGBM%20%7C%20XGBoost%20%7C%20LSTM-ML%20Ensemble-orange?style=for-the-badge" />
+<img src="https://img.shields.io/badge/Status-Live-success?style=for-the-badge" />
+
+<br/>
+
+A **production-grade ML platform** that predicts short-term equity price direction —
+turning a 120-stock research notebook into a fully deployable, real-time system.
+
+**4 markets** · **40+ features** · **Dynamic ticker resolution** · **Real-time data** · **Dark UI Dashboard**
+
+<br/>
+
+### 🔗 [**Live Demo →** stock-price-prediction-lyart.vercel.app](https://stock-price-prediction-lyart.vercel.app/)
+
+</div>
 
 ---
 
-## Problem Statement
+# 🎯 Problem Statement
 
-Predicting short-term equity price direction is a fundamental challenge in quantitative finance. This system converts a research-grade Jupyter notebook (covering 120 large-cap stocks across USA, India, China/HK, and Europe) into a fully deployable, production-ready platform.
+Predicting short-term equity price direction is a fundamental challenge in quantitative finance. StockPulse converts a research-grade Jupyter notebook (covering **120 large-cap stocks** across USA, India, China/HK, and Europe) into a fully deployable, production-ready platform.
 
-**Input**: Company name or ticker symbol (e.g. `"Apple"` or `"AAPL"`)  
-**Output**: 5-day price direction prediction (UP/DOWN), probability score, BUY/HOLD/SELL signal, interactive charts
+<div align="center">
 
----
-
-## Features
-
-| Feature | Detail |
+| Input | Output |
 |---|---|
-| 🔍 Dynamic Resolution | Company names resolved to tickers at runtime via yfinance — no static dictionaries |
-| 📡 Real-Time Data | Fresh OHLCV fetched on every query — no CSV, no stale data |
-| 🧠 ML Pipeline | LightGBM (primary) + XGBoost + LSTM ensemble |
-| 📊 40+ Features | Momentum, volatility, MA signals, RSI, MACD, Bollinger, volume |
-| 🌍 4 Markets | US (NYSE/NASDAQ) · India (NSE) · China/HK (HKEX) · Europe (LSE, Xetra, Euronext) |
-| 🎨 Dark UI | Professional dark-themed React dashboard with animated charts |
-| 🚀 FastAPI Backend | REST API with autocomplete search, rate limiting, auth, metrics |
-| 🐳 Docker Ready | Single `docker-compose up` deployment |
+| Company name or ticker (`"Apple"` / `"AAPL"`) | 5-day direction (UP/DOWN), probability score, BUY/HOLD/SELL signal, interactive charts |
+
+</div>
 
 ---
 
-## Architecture
+# ✨ Features
 
-```
+<table>
+<tr>
+<td width="50%">
+
+### 🧠 ML Pipeline
+- LightGBM (primary) + XGBoost + LSTM ensemble
+- 40+ engineered technical features
+- Dynamic ticker resolution via yfinance
+- No static CSVs — fresh OHLCV on every query
+
+</td>
+
+<td width="50%">
+
+### 🌍 Platform
+- 4 markets: US, India, China/HK, Europe
+- Dark-themed React dashboard
+- FastAPI backend — auth, rate limiting, metrics
+- Single-command Docker deployment
+
+</td>
+</tr>
+</table>
+
+---
+
+# 🏗️ Architecture
+
+<div align="center">
+
+```text
 User Input ("Apple")
        │
        ▼
-┌─────────────────────────────────────────────────────────┐
-│  React Frontend (Vite + TailwindCSS-style inline)        │
-│  SearchBar → Autocomplete → Charts → Prediction UI       │
-└────────────────────────┬────────────────────────────────┘
-                         │ POST /predict
-                         ▼
-┌─────────────────────────────────────────────────────────┐
-│  FastAPI  (api/app.py)                                   │
-│  Auth · Rate Limit · CORS · Metrics                      │
-└────────────────────────┬────────────────────────────────┘
-                         │
-                         ▼
-┌─────────────────────────────────────────────────────────┐
-│  ML Pipeline                                             │
-│  ┌──────────────┐  ┌──────────────┐  ┌───────────────┐ │
-│  │ data_         │  │ preprocessing│  │ feature_      │ │
-│  │ ingestion.py  │→ │     .py      │→ │ engineering   │ │
-│  │               │  │              │  │     .py       │ │
-│  │ TickerResolver│  │ OHLC clean   │  │ 40+ features  │ │
-│  │ StockFetcher  │  │ outliers     │  │ RSI,MACD,BB   │ │
-│  └──────────────┘  └──────────────┘  └───────┬───────┘ │
-│                                               │         │
-│  ┌──────────────────────────────────────────▼───────┐  │
-│  │  predict.py  (OnTheFlyPredictor)                  │  │
-│  │  Quick-trains LightGBM on 70% data               │  │
-│  │  Predicts latest row · Returns full result       │  │
-│  └──────────────────────────────────────────────────┘  │
-└─────────────────────────────────────────────────────────┘
-                         │
-                         ▼
-              yfinance (real-time OHLCV)
+React Frontend (Vite)
+SearchBar → Autocomplete → Charts → Prediction UI
+       │
+       ▼  POST /predict
+FastAPI  (api/app.py)
+Auth · Rate Limit · CORS · Metrics
+       │
+       ▼
+ML Pipeline
+data_ingestion → preprocessing → feature_engineering → predict.py
+TickerResolver     OHLC clean      40+ features      OnTheFlyPredictor
+StockFetcher       outliers        RSI/MACD/BB       Quick-trains LightGBM
+       │
+       ▼
+yfinance (real-time OHLCV)
 ```
+
+</div>
 
 ---
 
-## Folder Structure
+# 📂 Folder Structure
 
-```
+```bash
 stockpulse/
 ├── backend/
 │   ├── data_ingestion.py        # TickerResolver + StockDataFetcher
@@ -107,28 +132,19 @@ stockpulse/
 
 ---
 
-## Quick Start (Local)
+# 🚀 Quick Start
 
-### Prerequisites
-- Python 3.11+
-- Node.js 20+
-
-### 1. Backend
+## 1️⃣ Backend
 
 ```bash
-# Clone and enter directory
 cd stockpulse
-
-# Install Python deps
 pip install -r requirements.txt
-
-# Start the API server
 uvicorn api.app:app --reload --port 8000
 ```
 
-API docs: http://localhost:8000/docs
+API docs: `http://localhost:8000/docs`
 
-### 2. Frontend
+## 2️⃣ Frontend
 
 ```bash
 cd frontend
@@ -136,23 +152,27 @@ npm install
 npm run dev
 ```
 
-Open: http://localhost:3000
+Open: `http://localhost:3000`
 
-### 3. Docker (Full Stack)
+## 3️⃣ Docker (Full Stack)
 
 ```bash
 docker-compose up --build
 ```
 
-Open: http://localhost (Nginx serves frontend + proxies API)
+Open: `http://localhost` (Nginx serves frontend + proxies API)
+
+## 4️⃣ Live
+
+No setup needed — try it here: **[stock-price-prediction-lyart.vercel.app](https://stock-price-prediction-lyart.vercel.app/)**
 
 ---
 
-## API Reference
+# 📡 API Reference
 
 ### `POST /predict`
 
-Run the full ML pipeline for a query.
+Runs the full ML pipeline for a query.
 
 **Request:**
 ```json
@@ -189,23 +209,23 @@ Run the full ML pipeline for a query.
 }
 ```
 
-### `GET /search?q=apple`
+<div align="center">
 
-Autocomplete suggestions. Returns `{results: [{ticker, name, exchange, type}]}`.
+| Endpoint | Description |
+|---|---|
+| `GET /search?q=apple` | Autocomplete suggestions → `{results: [{ticker, name, exchange, type}]}` |
+| `GET /history/{ticker}?period=6mo` | Raw OHLCV history for charting |
+| `GET /metrics` | API usage and latency metrics |
 
-### `GET /history/{ticker}?period=6mo`
-
-Raw OHLCV history for charting.
-
-### `GET /metrics`
-
-API usage and latency metrics.
+</div>
 
 ---
 
-## ML Pipeline Details
+# 🧠 ML Pipeline Details
 
-### Features (40+)
+## Features (40+)
+
+<div align="center">
 
 | Group | Features |
 |---|---|
@@ -219,21 +239,23 @@ API usage and latency metrics.
 | Volume | vol z-score, OBV slope, VWAP ratio, vol ratios |
 | Regime | trend strength, skewness, kurtosis |
 
-### Model Selection
+</div>
+
+## Model Selection
 
 1. **LightGBM** (primary) — fastest, handles missing values, balanced class weight
 2. **XGBoost** — fallback if LightGBM unavailable
 3. **Logistic Regression** — baseline / last resort
 4. **LSTM** — optional deep learning (install PyTorch)
 
-### Target
+## Target
 
-`target = 1` if `close[t+5] / close[t] - 1 > 0.005` (UP by 0.5%+ in 5 days)  
+`target = 1` if `close[t+5] / close[t] - 1 > 0.005` (UP by 0.5%+ in 5 days)
 `target = 0` otherwise (DOWN or flat)
 
 ---
 
-## Configuration
+# ⚙️ Configuration
 
 Edit `config/config.yaml` to tune any parameter:
 
@@ -251,15 +273,13 @@ api:
 
 ---
 
-## Training (Offline / Production)
-
-To pre-train and cache models for fast inference:
+# 🏋️ Training (Offline / Production)
 
 ```bash
 # Single stock
 python -m backend.train --ticker AAPL
 
-# Multiple stocks  
+# Multiple stocks
 python -m backend.train --ticker AAPL MSFT TSLA NVDA
 
 # With Optuna tuning (takes longer, better AUC)
@@ -273,9 +293,11 @@ Saved artefacts: `models/<TICKER>/` → `lgbm_model.pkl`, `imputer.pkl`, `featur
 
 ---
 
-## Dynamic Stock Resolution — How It Works
+# 🔍 Dynamic Stock Resolution — How It Works
 
-```
+<div align="center">
+
+```text
 User types: "Apple"
        │
        ▼
@@ -294,12 +316,16 @@ TickerResolver._validate_ticker("AAPL")
 Returns TickerInfo(ticker="AAPL", name="Apple Inc.", market="US", ...)
 ```
 
-Handles: ambiguous names (Meta → META), Indian stocks (HDFC Bank → HDFCBANK.NS), 
-HK stocks (Tencent → 0700.HK), European stocks (ASML → ASML).
+</div>
+
+Handles ambiguous names (Meta → META), Indian stocks (HDFC Bank → HDFCBANK.NS),
+HK stocks (Tencent → 0700.HK), and European stocks (ASML → ASML).
 
 ---
 
-## Error Handling
+# ⚠️ Error Handling
+
+<div align="center">
 
 | Scenario | Response |
 |---|---|
@@ -309,24 +335,50 @@ HK stocks (Tencent → 0700.HK), European stocks (ASML → ASML).
 | yfinance timeout | Caught, returns error message |
 | No ML library | Falls back to Logistic Regression |
 
+</div>
+
 ---
 
-## Improvements Over Original Notebook
+# 🛠️ Improvements Over Original Notebook
+
+<div align="center">
 
 | Notebook Problem | Production Fix |
 |---|---|
 | Static CSV file (`fin_stock.csv`) | Real-time yfinance fetch per query |
 | Hardcoded Windows paths | Config-driven, OS-agnostic |
 | Tight coupling (all in one file) | 6 modular Python files |
-| No deployment | FastAPI + Docker + Nginx |
+| No deployment | FastAPI + Docker + Nginx, **live on Vercel** |
 | No UI | Full React dashboard |
 | No error handling | Graceful fallbacks throughout |
 | Manual training only | CLI + API-triggered training |
 | No model versioning | Per-ticker model directories with meta.json |
 
+</div>
+
 ---
 
-## Roadmap / Future Improvements
+# 🎯 Platform Capabilities
+
+<div align="center">
+
+| Capability | Status |
+|------------|--------|
+| Dynamic Ticker Resolution | ✅ |
+| Real-Time OHLCV Ingestion | ✅ |
+| LightGBM / XGBoost Ensemble | ✅ |
+| React Dashboard | ✅ |
+| Live Deployment | ✅ |
+| Macro Data (VIX, DXY, yield curve) | 🚧 Planned |
+| Sentiment (FinBERT on news) | 🚧 Planned |
+| WebSocket Real-Time Streaming | 🚧 Planned |
+| Multi-User Auth (JWT) | 🚧 Planned |
+
+</div>
+
+---
+
+# 🔮 Roadmap / Future Improvements
 
 - [ ] **Macro data** (VIX, yield curve, DXY via FRED API)
 - [ ] **Earnings calendar** feature (days to/from earnings)
@@ -341,11 +393,13 @@ HK stocks (Tencent → 0700.HK), European stocks (ASML → ASML).
 
 ---
 
-## HFT-Level Advanced Architecture (Optional)
+# ⚡ HFT-Level Advanced Architecture (Optional)
 
 For microsecond-level latency requirements:
 
-```
+<div align="center">
+
+```text
 Market Data Feed (FIX/ITCH)
          │
          ▼
@@ -361,9 +415,13 @@ ONNX Runtime (model export for <1ms inference)
 WebSocket → React dashboard (sub-100ms E2E)
 ```
 
+</div>
+
 ---
 
-## Tech Stack
+# 🧰 Tech Stack
+
+<div align="center">
 
 | Layer | Technology |
 |---|---|
@@ -374,16 +432,31 @@ WebSocket → React dashboard (sub-100ms E2E)
 | API | FastAPI, uvicorn, pydantic |
 | Rate Limit | slowapi |
 | Frontend | React 18, Vite, custom SVG charts |
-| Deployment | Docker, Nginx |
+| Deployment | Docker, Nginx, Vercel |
 | Config | PyYAML |
 
----
-
-## License
-
-MIT License. For educational and research purposes.  
-Not financial advice. Always do your own due diligence.
+</div>
 
 ---
 
-*Built from a 120-stock research notebook → production-grade fintech system.*
+# ⚠️ Disclaimer
+
+This project is intended for:
+- Educational purposes
+- Quantitative finance research
+- ML system design practice
+- Fintech engineering learning
+
+It is **not financial advice**. Always do your own due diligence.
+
+---
+
+<div align="center">
+
+### ⭐ If you like this project, consider giving it a star!
+
+Built with ❤️ using Python, FastAPI & React for Quantitative Finance
+
+**[🔗 Try the live demo](https://stock-price-prediction-lyart.vercel.app/)**
+
+</div>
