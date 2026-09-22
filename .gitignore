@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+
+# Node
+frontend/node_modules/
+frontend/dist/
+
+# Large training artifacts not needed for serving
+large_cap_output/*.parquet
+large_cap_output/*.png
+large_cap_output/*.csv
+large_cap_output/xgb_model.pkl
+large_cap_output/lr_model.pkl
+large_cap_output/lr_scaler.pkl
+large_cap_output/lstm_classifier.pt
+large_cap_output/lstm_scaler.pkl
+
+# Keep: best_model.pkl, imputer.pkl, feature_cols.json, config.json, model_report.json

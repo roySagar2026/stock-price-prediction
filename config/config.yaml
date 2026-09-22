@@ -1,0 +1,54 @@
+app:
+  name: StockPulse
+  version: "1.0.0"
+  debug: false
+
+model:
+  return_horizon: 5          # predict 5-day forward return
+  target_threshold: 0.005    # +0.5% = Class 1 (UP)
+  confidence_thresh: 0.60    # minimum probability to signal a trade
+  ffill_limit: 3
+  vol_window: 252
+  lstm_seq_len: 60
+  lstm_epochs: 50
+  lstm_batch: 128
+  lstm_hidden: 128
+  lstm_layers: 2
+  lstm_dropout: 0.3
+  train_pct: 0.70
+  val_pct: 0.15
+  data_period: "2y"          # yfinance period for historical data
+  data_interval: "1d"
+
+lgbm:
+  n_estimators: 1500
+  max_depth: 6
+  learning_rate: 0.02
+  subsample: 0.8
+  colsample_bytree: 0.7
+  min_child_samples: 30
+  reg_alpha: 0.1
+  reg_lambda: 1.0
+  class_weight: balanced
+
+xgboost:
+  n_estimators: 1000
+  max_depth: 6
+  learning_rate: 0.02
+  subsample: 0.8
+  colsample_bytree: 0.7
+
+api:
+  host: "0.0.0.0"
+  port: 8000
+  cors_origins:
+    - "http://localhost:3000"
+    - "http://localhost:5173"
+  rate_limit: 30             # requests per minute
+  cache_ttl: 300             # seconds to cache prediction results
+
+logging:
+  level: INFO
+  file: logs/stockpulse.log
+
+models_dir: large_cap_output/

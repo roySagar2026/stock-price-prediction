@@ -1,0 +1,20 @@
+{
+  "best_model": "LightGBM (Tuned)",
+  "test_auc": 0.5010191605386843,
+  "features": 79,
+  "tickers": 120,
+  "markets": [
+    "US",
+    "India",
+    "China",
+    "Europe"
+  ],
+  "train_rows": 64706,
+  "val_rows": 13936,
+  "test_rows": 13920,
+  "train_date_range": "2023-04-20 \u2192 2025-05-23",
+  "test_date_range": "2025-11-05 \u2192 2026-04-17",
+  "recommended_threshold": 0.5,
+  "wf_mean_auc": 0.49503613278641756,
+  "wf_std_auc": 0.02446365885088376
+}

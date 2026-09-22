@@ -1,0 +1,15 @@
+{
+  "return_horizon": 5,
+  "target_threshold": 0.005,
+  "ffill_limit": 3,
+  "vol_window": 252,
+  "lstm_seq_len": 60,
+  "lstm_epochs": 50,
+  "lstm_batch": 128,
+  "lstm_hidden": 128,
+  "lstm_layers": 2,
+  "lstm_dropout": 0.3,
+  "confidence_thresh": 0.6,
+  "train_pct": 0.7,
+  "val_pct": 0.15
+}
