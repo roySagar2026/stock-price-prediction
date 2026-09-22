@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 
 // ─── CONFIG ──────────────────────────────────────────────────────────────────
-const API_BASE = "http://localhost:8000";
+const API_BASE = "https://stock-price-prediction-1-0wzx.onrender.com";
 
 // ─── INLINE STYLES / DESIGN TOKENS ───────────────────────────────────────────
 const T = {
