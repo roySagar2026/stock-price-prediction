@@ -44,6 +44,7 @@ api:
   cors_origins:
     - "http://localhost:3000"
     - "http://localhost:5173"
+    - "https://stock-price-prediction-lyart.vercel.app"
   rate_limit: 30             # requests per minute
   cache_ttl: 300             # seconds to cache prediction results
 
